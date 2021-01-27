@@ -1,0 +1,28 @@
+// 20210127085433
+// https://pokeapi.co/api/v2/evolution-chain/1/
+
+{
+  "id": 1,
+    "evolves_to": [
+      {
+        "is_baby": false,
+        "species": {
+          "name": "ivysaur",
+          "url": "https://pokeapi.co/api/v2/pokemon-species/2/"
+        },
+        "evolves_to": [
+          {
+            "evolves_to": [
+              
+            ],
+            "is_baby": false,
+            "species": {
+              "name": "venusaur",
+              "url": "https://pokeapi.co/api/v2/pokemon-species/3/"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
