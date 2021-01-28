@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import Logo from '../assets/logo.png'
 import Settings from '../assets/settings.svg'
@@ -39,7 +40,11 @@ const Home: React.FC = () => {
         </LoginImageBox>
         <FormBox>
           <Input placeholder="Seu melhor e-mail" />
-          <Button>Acessar</Button>
+          <Button>
+            <Link href="/dashboard">
+              <a>Acessar</a>
+            </Link>
+          </Button>
         </FormBox>
       </LoginBox>
     </Container>
