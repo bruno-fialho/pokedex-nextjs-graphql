@@ -15,7 +15,7 @@ export const Header = styled.div`
   top: 0;
   left: 0;
   width: 378px;
-  height: 100vh;
+  height: 100%;
   background: #dd4b4a;
 
   z-index: 30;
@@ -73,27 +73,42 @@ export const Input = styled.input`
   }
 `
 
-export const ListBox = styled.div`
-  position: absolute;
-  top: 300px;
-  left: 0;
+export const ButtonGroup = styled.div`
+  position: relative;
+  /* top: 300px;
+  left: 0; */
   width: 100%;
   height: 62vh;
   overflow: hidden;
   overflow-y: scroll;
+  margin-top: 10px;
+
+  display: flex;
+  flex-direction: column;
 
   /* max-height: ; */
-  margin-top: 10px;
   /* border: 1px solid #fff; */
 
-  ul li :first-child {
+  button :first-child {
     margin-top: 0;
   }
 
-  ul li {
-    list-style: none;
-    font: 600 1.3rem 'Open Sans', sans-serif;
-    margin: 17px 50px 0 50px;
+  button {
+    width: 100%;
+    height: 40px;
+    margin-top: 18px;
+    border: none;
+    background: #dd4b4a;
+    color: #fff;
+    font: 600 1.2rem 'Open Sans', sans-serif;
+    cursor: pointer;
+
+    display: flex;
+    align-items: flex-start;
+
+    > span {
+      margin-left: 50px;
+    }
   }
 
   ::-webkit-scrollbar {

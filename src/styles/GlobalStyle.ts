@@ -14,7 +14,7 @@ export default createGlobalStyle`
     font: 400 1.6rem 'Open Sans', sans-serif;
   }
 
-  a:any-link {
+  button:any-link {
     text-decoration: none;
     color: inherit;
 

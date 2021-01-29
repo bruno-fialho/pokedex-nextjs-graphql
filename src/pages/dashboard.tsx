@@ -1,20 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { GetServerSideProps, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import Link from 'next/link'
+// import Link from 'next/link'
+
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 
 import Logo from '../assets/logo.png'
-import BigPokemon from '../assets/bigPokemon.png'
-import FirstEvolution from '../assets/firstEvolution.jpeg'
-import SecondEvolution from '../assets/secondEvolution.jpeg'
-
+import BigPokemon from '@/assets/bigPokemon.png'
+import FirstEvolution from '@/assets/firstEvolution.jpeg'
+import SecondEvolution from '@/assets/secondEvolution.jpeg'
 import {
   Container,
   Header,
   TopBox,
   ImageBox,
   Input,
-  ListBox,
+  ButtonGroup,
   Content,
   NameBox,
   ContentHeader,
@@ -38,7 +40,116 @@ import {
   BigDescriptionBox
 } from '@/styles/pages/Dashboard'
 
-const Dashboard: React.FC = () => {
+interface PokemonItem {
+  name: string
+  id: number
+  url: string
+}
+
+interface PokemonList {
+  results: PokemonItem[]
+}
+
+interface SpeciesProps {
+  url: string
+}
+interface SpritesProps {
+  front_default: string
+}
+
+interface StatProps {
+  name: string
+}
+
+interface StatsProps {
+  base_stat: number
+  stat: StatProps
+}
+
+interface TypeProps {
+  name: string
+}
+
+interface TypesProps {
+  type: TypeProps
+}
+interface PokemonInfo {
+  height: number
+  id: number
+  name: string
+  species: SpeciesProps
+  sprites: SpritesProps
+  stats: StatsProps[]
+  types: TypesProps[]
+  weight: number
+}
+
+export default function Home({ results }: PokemonList) {
+  const [selectedPokemonName, setSelectedPokemonName] = useState('bulbasaur')
+  const [selectedPokemonInfo, setSelectedPokemonInfo] = useState(
+    {} as PokemonInfo
+  )
+
+  function formatID(id: number): string {
+    return ('00' + id).slice(-3)
+  }
+
+  const capitalize = (s: string) => {
+    if (typeof s !== 'string') return ''
+    return s.charAt(0).toUpperCase() + s.slice(1)
+  }
+
+  // const client = new ApolloClient({
+  //   uri: 'https://graphql-pokeapi.vercel.app/api/graphql',
+  //   cache: new InMemoryCache()
+  // })
+
+  // useEffect(() => {
+  //   async function getPokemonInfo() {
+  //     const client = new ApolloClient({
+  //       uri: 'https://graphql-pokeapi.vercel.app/api/graphql',
+  //       cache: new InMemoryCache()
+  //     })
+
+  //     const { data } = await client.query({
+  //       query: gql`
+  //         query pokemon($name: String!) {
+  //           pokemon(name: $name) {
+  //             id
+  //             name
+  //             height
+  //             weight
+  //             sprites {
+  //               front_default
+  //             }
+  //             types {
+  //               type {
+  //                 name
+  //               }
+  //             }
+  //             species {
+  //               url
+  //             }
+  //             stats {
+  //               base_stat
+  //               stat {
+  //                 name
+  //               }
+  //             }
+  //           }
+  //         }
+  //       `,
+  //       variables: {
+  //         name: selectedPokemonName
+  //       }
+  //     })
+
+  //     setSelectedPokemonInfo(data)
+  //     // console.log(selectedPokemonInfo)
+  //   }
+  //   getPokemonInfo()
+  // }, [setSelectedPokemonName])
+
   return (
     <Container>
       <Head>
@@ -57,160 +168,20 @@ const Dashboard: React.FC = () => {
           <Input placeholder="Search by name or number" />
         </TopBox>
 
-        <ListBox>
-          <ul>
-            <li>
-              <Link href="#">
-                <a>#001- Bulbasaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#002- Ivysaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#003- Venusaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#001- Bulbasaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#002- Ivysaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#003- Venusaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#001- Bulbasaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#002- Ivysaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#003- Venusaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#001- Bulbasaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#002- Ivysaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#003- Venusaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#001- Bulbasaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#002- Ivysaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#003- Venusaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#001- Bulbasaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#002- Ivysaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#003- Venusaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#001- Bulbasaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#002- Ivysaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#003- Venusaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#001- Bulbasaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#002- Ivysaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#003- Venusaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#001- Bulbasaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#002- Ivysaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#003- Venusaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#001- Bulbasaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#002- Ivysaur</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="#">
-                <a>#003- Venusaur</a>
-              </Link>
-            </li>
-          </ul>
-        </ListBox>
+        <ButtonGroup>
+          {results.map((pokemon: PokemonItem) => {
+            return (
+              <button
+                key={formatID(pokemon.id)}
+                onClick={() => setSelectedPokemonName(pokemon.name)}
+              >
+                <span>{`#${formatID(pokemon.id)} - ${capitalize(
+                  pokemon.name
+                )}`}</span>
+              </button>
+            )
+          })}
+        </ButtonGroup>
       </Header>
 
       <Content>
@@ -354,4 +325,33 @@ const Dashboard: React.FC = () => {
   )
 }
 
-export default Dashboard
+export const getStaticProps: GetStaticProps<PokemonList> = async context => {
+  const client = new ApolloClient({
+    uri: 'https://graphql-pokeapi.vercel.app/api/graphql',
+    cache: new InMemoryCache()
+  })
+
+  const { data } = await client.query({
+    query: gql`
+      query pokemons($limit: Int, $offset: Int) {
+        pokemons(limit: $limit, offset: $offset) {
+          results {
+            name
+            id
+            url
+          }
+        }
+      }
+    `,
+    variables: {
+      limit: 151,
+      offset: 0
+    }
+  })
+
+  return {
+    props: {
+      results: data.pokemons.results
+    }
+  }
+}
